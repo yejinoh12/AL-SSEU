@@ -1,0 +1,57 @@
+package 그리디;
+
+//문제
+//준규가 가지고 있는 동전은 총 N종류이고, 각각의 동전을 매우 많이 가지고 있다.
+//동전을 적절히 사용해서 그 가치의 합을 K로 만들려고 한다. 이때 필요한 동전 개수의 최솟값을 구하는 프로그램을 작성하시오.
+
+//아이디어
+//동전을 내림차순 정렬(동전 개수의 최솟값을 구해야하므로 최대한 큰 가치의 동전을 사용해야하기 때문)
+//동전을 반복문 돌려서 목표값보다 작은 동전 값이 나오면 목표값을 목표값-동전으로 갱신하고 브레이크하는 하기
+//위의 과정을 목표값이 0이 될 동안 반복
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class 동전_0 {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int[] input = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int N = input[0]; //동전의 종류
+        int K = input[1]; //동전으로 만들어야 한는 값
+
+        //동전 입력
+        ArrayList<Integer> coins = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            coins.add(Integer.parseInt(br.readLine()));
+        }
+
+        //오름차순 정렬되어 있는 동전을 내림차순으로 변경
+        Collections.reverse(coins);
+
+        int ans = 0;
+
+        //목표값이 0과 같거나 작으면 종료
+        while (K > 0) {
+
+            for (int i = 0; i < N; i++) {
+
+                //목표값보다 작은 코인이 있다면
+                if (K >= coins.get(i)) {
+                    K -= coins.get(i);
+                    ans++;
+                    break;
+                }
+            }
+        }
+
+        System.out.println(ans);
+    }
+}
+
