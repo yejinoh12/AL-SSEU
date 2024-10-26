@@ -6,45 +6,27 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class 보물 {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int N = Integer.parseInt(br.readLine());
-
+        int S = Integer.parseInt(br.readLine());
         int[] A = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         int[] B = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 
-        int[] newA = new int[N];
+        Arrays.sort(A);
+        Arrays.sort(B);
 
-        ArrayList<Integer> AIndex = new ArrayList<>();
-        ArrayList<Integer> BIndex = new ArrayList<>();
-
-        for(int i = 0; i < N; i++){
-            AIndex.add(A[i]);
-            BIndex.add(B[i]);
+        int sum = 0;
+        for (int i = 0; i < S; i++) {
+            sum += A[S - i - 1] * B[i];
         }
 
-        for(int i = 0; i < N; i++){
-
-            int maxIdxOfB = BIndex.indexOf(Collections.max(BIndex));
-            BIndex.set(maxIdxOfB, -1);
-
-            int minIdxOfA = AIndex.indexOf(Collections.min(AIndex));
-            newA[maxIdxOfB] = AIndex.get(minIdxOfA);
-            AIndex.remove(minIdxOfA);
-        }
-
-        int ans = 0;
-
-        for(int i = 0; i < N; i++){
-            ans += newA[i] * B[i];
-        }
-
-        System.out.println(ans);
+        System.out.println(sum);
 
     }
 }
