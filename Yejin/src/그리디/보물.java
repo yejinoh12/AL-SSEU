@@ -1,7 +1,5 @@
 package 그리디;
 
-//newA[B의 최대값 인덱스] = A의 최소값
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
